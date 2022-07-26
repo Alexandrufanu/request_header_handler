@@ -1,0 +1,24 @@
+{
+  "name": "request_header_parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexandrufanu/request_header_parser.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexandrufanu/request_header_parser/issues"
+  },
+  "homepage": "https://github.com/Alexandrufanu/request_header_parser#readme",
+  "devDependencies": {
+    "@types/node": "^18.6.1",
+    "typescript": "^4.7.4"
+  }
+}
