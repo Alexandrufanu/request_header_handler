@@ -51,6 +51,13 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get("/api/whoami", (req, res)=>{
   
+console.log(    { 
+  "ipaddress":req.socket.remoteAddress,
+  "software":req.body["useragent"],
+  "language":req.body["accept-language"]
+
+}      )
+
   res.send(
     { 
       "ipaddress":req.socket.remoteAddress,
