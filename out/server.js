@@ -26,6 +26,18 @@ app.get('/', (req, res) => {
     // {"ipaddress":req.socket.remoteAddress}
     req.headers);
 });
+app.get("/api/whoami", (req, res) => {
+    console.log({
+        "ipaddress": req.socket.remoteAddress,
+        "software": req.body["useragent"],
+        "language": req.body["accept-language"]
+    });
+    res.send({
+        "ipaddress": req.socket.remoteAddress,
+        "software": req.body["useragent"],
+        "language": req.body["accept-language"]
+    });
+});
 app.post('/', (req, res) => {
     console.log(req.headers);
     console.log(req.body);
