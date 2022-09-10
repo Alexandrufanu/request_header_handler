@@ -48,6 +48,21 @@ app.get('/', (req: Request, res: Response) => {
 
 });
 
+
+app.get("/api/whoami", (req, res)=>{
+  
+  res.send(
+    { 
+      "ipaddress":req.socket.remoteAddress,
+      "software":req.body["useragent"],
+      "language":req.body["accept-language"]
+    
+    }      
+  )
+
+})
+
+
 app.post('/', (req: Request, res: Response) => {
   
   console.log( req.headers);
