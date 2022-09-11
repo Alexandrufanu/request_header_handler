@@ -18,6 +18,9 @@ var cors = require("cors");
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express_1.default.urlencoded({
+    extended: true
+}));
 const port = process.env.PORT || 5456;
 app.get('/', (req, res) => {
     console.log(req.headers);
@@ -29,19 +32,44 @@ app.get('/', (req, res) => {
 app.get("/api/whoami", (req, res) => {
     console.log({
         "ipaddress": req.socket.remoteAddress,
-        "software": req.body["useragent"],
-        "language": req.body["accept-language"]
+        "software": req.headers["user-agent"],
+        "language": req.headers["accept-language"]
     });
     res.send({
         "ipaddress": req.socket.remoteAddress,
-        "software": req.body["useragent"],
-        "language": req.body["accept-language"]
+        "software": req.headers["user-agent"],
+        "language": req.headers["accept-language"]
     });
 });
 app.post('/', (req, res) => {
     console.log(req.headers);
     console.log(req.body);
     res.send("Heres");
+});
+function stringIsAValidUrl(url) {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlRegex.test(url);
+}
+let urlShortenedCount = 0;
+app.post("/api/shorturl", (req, res) => {
+    url: 'https://requestheaderhandler-2.alexandrufanu1.repl.co/?v=1662825721969';
+    let urlToShorten = req.body["url"];
+    console.log(urlToShorten);
+    console.log(req.body);
+    // dns.lookup(urlToShorten , (error,address,family)=>{
+    if (!stringIsAValidUrl(urlToShorten)) {
+        console.log("Here in error");
+        // console.log(error)
+        res.send({ error: 'invalid url' });
+    }
+    else {
+        app.get('/api/shorturl/' + urlShortenedCount, (req, res) => {
+            res.redirect(urlToShorten);
+        });
+        res.send({ original_url: urlToShorten, short_url: urlShortenedCount++ });
+    }
+    //  }
+    // );
 });
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
